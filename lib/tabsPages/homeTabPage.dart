@@ -1,14 +1,17 @@
-import 'dart:async';
+import 'package:driver_apps/Notifications/pushNotificationService.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:driver_apps/AllScreens/registrarscreen.dart';
 import 'package:driver_apps/Assistants/assistanMethods.dart';
-import 'package:driver_apps/Notifications/pushNotificationService.dart';
-import 'package:driver_apps/configMaps.dart';
-import 'package:driver_apps/main.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_geofire/flutter_geofire.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:driver_apps/configMaps.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:driver_apps/main.dart';
+import 'package:flutter/material.dart';
+import 'dart:async';
+
+import '../Models/drivers.dart';
 
 class HomeTabPage extends StatefulWidget {
   static const CameraPosition _kGooglePlex = CameraPosition(
@@ -50,7 +53,6 @@ class _HomeTabPageState extends State<HomeTabPage> {
    */
 
   Completer<GoogleMapController> _controllerGoogleMap = Completer();
-
   late GoogleMapController newGoogleMapController;
 
   var geoLocator = Geolocator();
@@ -60,8 +62,6 @@ class _HomeTabPageState extends State<HomeTabPage> {
   Color driverStatusColor = Colors.black;
 
   bool isDriversAvailable = false;
-
-  var currentPosition;
 
   @override
   void initState() {
@@ -90,8 +90,14 @@ class _HomeTabPageState extends State<HomeTabPage> {
   void getCurrentDriverInfo() async {
     currentfirebaseUser = await FirebaseAuth.instance.currentUser;
     PushNotificationService pushNotificationService = PushNotificationService();
-    pushNotificationService.requestPermission();
-    pushNotificationService.inicialize();
+
+    driverRef.child(currentfirebaseUser.uid).once().then((DatabaseEvent event) {
+      if (event.snapshot.exists) {
+        driversInformation = Drivers.fromSnapshot(event.snapshot);
+      }
+    });
+
+    pushNotificationService.initialize(context);
     pushNotificationService.getToken();
   }
 
@@ -191,11 +197,12 @@ class _HomeTabPageState extends State<HomeTabPage> {
     Geofire.setLocation(currentfirebaseUser.uid, currentPosition.latitude,
         currentPosition.longitude);
 
+    rideRequestRef.set("searching");
     rideRequestRef.onValue.listen((event) {});
   }
 
   void getLocationLiveUpdates() {
-    homeTabPagestreamSubscription =
+    homeTabPageStreamSubscription =
         Geolocator.getPositionStream().listen((Position position) {
       currentPosition = position;
       if (isDriversAvailable == true) {

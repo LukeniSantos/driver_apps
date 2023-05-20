@@ -15,12 +15,14 @@ void main() async {
   await Firebase.initializeApp();
 
   //currentfirebaseUser = FirebaseAuth.instance.currentUser;
-  //dssdf
+
   runApp(const MyApp());
 }
 
 DatabaseReference userRef = FirebaseDatabase.instance.ref().child("users");
 DatabaseReference driverRef = FirebaseDatabase.instance.ref().child("drivers");
+DatabaseReference newRequestsRef =
+    FirebaseDatabase.instance.ref().child("Ride Request");
 DatabaseReference rideRequestRef = FirebaseDatabase.instance
     .ref()
     .child("drivers")

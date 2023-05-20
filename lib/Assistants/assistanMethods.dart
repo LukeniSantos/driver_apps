@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter_geofire/flutter_geofire.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +14,7 @@ import 'package:driver_apps/Models/directDetails.dart';
 import 'package:driver_apps/configMaps.dart';
 
 class AssistantMethods {
+  /*
   static Future<String> searchCoordinateAdress(
       Position position, context) async {
     String placeAdress = "";
@@ -39,6 +41,7 @@ class AssistantMethods {
 
     return placeAdress;
   }
+  */
 
   static Future<DirectionDetails?> obtainPlaceDirectionDetails(
       LatLng inicialPosition, LatLng finalPosition) async {
@@ -81,7 +84,7 @@ class AssistantMethods {
     return totalLocalAmpount.truncate();
   }
 
-  static void getCurrentOnlineUserInfo() async {
+  /*static void getCurrentOnlineUserInfo() async {
     firebaseUser = (await FirebaseAuth.instance.currentUser)!;
     String userId = firebaseUser.uid;
     DatabaseReference reference =
@@ -93,5 +96,16 @@ class AssistantMethods {
         userCurrentInfo = Users.fromSnapshot(dataSnapshot.snapshot);
       }
     }));
+  }*/
+
+  static void disablehomeTabLiveLocationUpdates() {
+    homeTabPageStreamSubscription!.pause();
+    Geofire.removeLocation(currentfirebaseUser.uid);
+  }
+
+  static void enablehomeTabLiveLocationUpdates() {
+    homeTabPageStreamSubscription!.resume();
+    Geofire.setLocation(currentfirebaseUser.uid, currentPosition.latitude,
+        currentPosition.longitude);
   }
 }

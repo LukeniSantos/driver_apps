@@ -2,8 +2,6 @@
 
 A new Flutter project.
 
-## Error in PushNotification.dart
-
 ## Getting Started
 
 This project is a starting point for a Flutter application.
