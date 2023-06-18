@@ -510,7 +510,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) => CollectFareDialog(
-          paymentMethod: widget.rideDetails.paymentMethod,
+          paymentMethod: widget.rideDetails.payment_method,
           fareAmount: fareAmount),
     );
 

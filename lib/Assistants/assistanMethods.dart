@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:driver_apps/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_geofire/flutter_geofire.dart';
@@ -107,5 +108,33 @@ class AssistantMethods {
     homeTabPageStreamSubscription!.resume();
     Geofire.setLocation(currentfirebaseUser.uid, currentPosition.latitude,
         currentPosition.longitude);
+  }
+
+  static void retrieveHistoryInfo(context) {
+    //retried and display earnings
+    driverRef
+        .child(currentfirebaseUser.uid)
+        .child("earnings")
+        .once()
+        .then((data) {
+      if (data.snapshot.value != null) {
+        String earnings = data.snapshot.value.toString();
+        Provider.of<AppData>(context, listen: false).updateEarnings(earnings);
+      }
+    });
+
+    //retried and display trip history
+    driverRef
+        .child(currentfirebaseUser.uid)
+        .child("history")
+        .once()
+        .then((data) {
+      if (data.snapshot.value != null) {
+        Map<dynamic, dynamic> keys = data.snapshot.value as Map;
+        int tripCounter = keys.length;
+        Provider.of<AppData>(context, listen: false)
+            .updateTripsCounter(tripCounter);
+      }
+    });
   }
 }
