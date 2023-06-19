@@ -1,16 +1,14 @@
-import 'dart:async';
-
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:driver_apps/Notifications/notificationDialog.dart';
 import 'package:driver_apps/configMaps.dart';
 import 'package:driver_apps/main.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'dart:io' show Platform;
-
 import '../Models/ridedetails.dart';
+import 'dart:io' show Platform;
+import 'dart:async';
 
 class PushNotificationService {
   FirebaseMessaging mensagem = FirebaseMessaging.instance;

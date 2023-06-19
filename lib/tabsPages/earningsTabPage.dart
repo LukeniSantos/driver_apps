@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../AllScreens/HistoryScreen.dart';
 import '../DataHandler/appData.dart';
 
-class EarnigTabPage extends StatelessWidget {
-  const EarnigTabPage({super.key});
-
+class EarningsTabPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -18,11 +17,11 @@ class EarnigTabPage extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  'Total Earning',
+                  'Total Earnings',
                   style: TextStyle(color: Colors.white),
                 ),
                 Text(
-                  "${Provider.of<AppData>(context, listen: false).earnings}",
+                  "${Provider.of<AppData>(context, listen: false).earnings} kz",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 50,
@@ -39,10 +38,10 @@ class EarnigTabPage extends StatelessWidget {
             ),
           ),
           onPressed: () {
-            /* Navigator.push(
+            Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => HistoryScreen()),
-            );*/
+            );
           },
           child: Row(
             children: [
@@ -55,7 +54,9 @@ class EarnigTabPage extends StatelessWidget {
               Expanded(
                 child: Container(
                   child: Text(
-                    "5",
+                    Provider.of<AppData>(context, listen: false)
+                        .countTrips
+                        .toString(),
                     textAlign: TextAlign.end,
                     style: TextStyle(fontSize: 18),
                   ),

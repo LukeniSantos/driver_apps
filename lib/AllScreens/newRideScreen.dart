@@ -520,7 +520,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
   void saveEarnings(int fareAmount) {
     driverRef
         .child(currentfirebaseUser.uid)
-        .child("earnings ")
+        .child("earnings")
         .once()
         .then((DatabaseEvent event) {
       if (event.snapshot.value != null) {
@@ -529,13 +529,13 @@ class _NewRideScreenState extends State<NewRideScreen> {
 
         driverRef
             .child(currentfirebaseUser.uid)
-            .child("earning")
+            .child("earnings")
             .set(totalEarnings.toStringAsFixed(2));
       } else {
         double totalEarnings = fareAmount.toDouble();
         driverRef
             .child(currentfirebaseUser.uid)
-            .child("earning")
+            .child("earnings")
             .set(totalEarnings.toStringAsFixed(2));
       }
     });

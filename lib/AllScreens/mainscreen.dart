@@ -45,7 +45,7 @@ class _MainScreenState extends State<MainScreen>
         controller: tabController,
         children: [
           HomeTabPage(),
-          EarnigTabPage(),
+          EarningsTabPage(),
           RatingTabPage(),
           ProfileTabPage(),
         ],
