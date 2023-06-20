@@ -417,17 +417,17 @@ class _NewRideScreenState extends State<NewRideScreen> {
     newRequestsRef
         .child(rideRequestId)
         .child("driver_name")
-        .set(driversInformation.name);
+        .set(driversInformation!.name);
     newRequestsRef
         .child(rideRequestId)
         .child("driver_phone")
-        .set(driversInformation.phone);
+        .set(driversInformation!.phone);
     newRequestsRef
         .child(rideRequestId)
         .child("driver_id")
-        .set(driversInformation.id);
+        .set(driversInformation!.id);
     newRequestsRef.child(rideRequestId).child("car_details").set(
-        '${driversInformation.car_color} - ${driversInformation.car_model}');
+        '${driversInformation!.car_color} - ${driversInformation!.car_model}');
 
     Map locMap = {
       "latitude": currentPosition.latitude.toString(),

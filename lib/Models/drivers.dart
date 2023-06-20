@@ -3,6 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 class Drivers {
   String? name;
   String? phone;
+  String? nip;
   String? email;
   String? id;
   String? car_color;
@@ -12,6 +13,7 @@ class Drivers {
   Drivers({
     this.name,
     this.phone,
+    this.nip,
     this.email,
     this.id,
     this.car_color,
@@ -23,6 +25,7 @@ class Drivers {
     id = dataSnapshot.key;
     final value = dataSnapshot.value as Map;
     phone = value["phone"];
+    nip = value["nip"];
     email = value["email"];
     name = value["name"];
     car_color = value["car_details"]["car_color"];

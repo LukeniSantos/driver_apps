@@ -13,8 +13,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Trip History'),
-        backgroundColor: Colors.grey,
+        title: Text(
+          'Trip History',
+        ),
+        backgroundColor: Colors.black87,
+        foregroundColor: Colors.white,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);

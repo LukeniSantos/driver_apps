@@ -22,4 +22,7 @@ final assetsAudioPlayer = AssetsAudioPlayer();
 
 var currentPosition;
 
-Drivers driversInformation = Drivers();
+Drivers? driversInformation;
+
+String title = "";
+double starCounter = 0.0;
