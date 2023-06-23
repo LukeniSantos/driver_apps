@@ -30,7 +30,7 @@ class CollectFareDialog extends StatelessWidget {
               height: 22.0,
             ),
             Text(
-              "Trip Fare " /*+ rideType.toUpperCase() + ")"*/,
+              "Trip Fare (" + rideType.toUpperCase() + ")",
               style: TextStyle(fontSize: 16.0, fontFamily: "Brand Bold"),
             ),
             SizedBox(

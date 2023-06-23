@@ -11,6 +11,9 @@ class CarInfoScreen extends StatelessWidget {
       TextEditingController();
   TextEditingController carColorTextEditingController = TextEditingController();
 
+  String? selectedCarType;
+  List<String> carTypeList = ["uber-x", "uber-go", "bike"];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,6 +67,22 @@ class CarInfoScreen extends StatelessWidget {
                     ),
                     style: TextStyle(fontSize: 15.0),
                   ),
+                  SizedBox(height: 26.0),
+                  DropdownButton(
+                    iconSize: 40,
+                    hint: Text("Please chose Car type"),
+                    value: selectedCarType,
+                    onChanged: (newValue) {
+                      selectedCarType = newValue;
+                      displayToastMesenger(selectedCarType!, context);
+                    },
+                    items: carTypeList.map((car) {
+                      return DropdownMenuItem(
+                        child: new Text(car),
+                        value: car,
+                      );
+                    }).toList(),
+                  ),
                   SizedBox(height: 42.0),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -71,15 +90,19 @@ class CarInfoScreen extends StatelessWidget {
                       onPressed: () {
                         if (carModelTextEditingController.text.isEmpty) {
                           displayToastMesenger(
-                              "Por favor informe o modelo do carro. ", context);
+                              "Por favor informe o modelo do veiculo.",
+                              context);
                         } else if (carNumberTextEditingController
                             .text.isEmpty) {
                           displayToastMesenger(
-                              "Por favor informe numero da matricula do carro. ",
+                              "Por favor informe numero da matricula do veiculo.",
                               context);
                         } else if (carColorTextEditingController.text.isEmpty) {
                           displayToastMesenger(
-                              "Por favor informe a cor do carro. ", context);
+                              "Por favor informe a cor do veiculo.", context);
+                        } else if (selectedCarType == null) {
+                          displayToastMesenger(
+                              "Por favor informe o tipo de veiculo.", context);
                         } else {
                           saveDriverCarInfo(context);
                         }
@@ -124,6 +147,7 @@ class CarInfoScreen extends StatelessWidget {
       "car_color": carColorTextEditingController.text,
       "car_number": carNumberTextEditingController.text,
       "car_model": carModelTextEditingController.text,
+      "type": selectedCarType,
     };
 
     driverRef.child(userId).child("car_details").set(carInfoMap);

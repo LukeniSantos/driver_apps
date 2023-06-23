@@ -75,9 +75,19 @@ class AssistantMethods {
     double totalFireAmount = timeTraveledFare + distancTraveledFare;
 
     // 1$ = 160 rs
-    double totalLocalAmpount = totalFireAmount * 160;
+    //double totalLocalAmount = totalFireAmount * 160;
 
-    return totalLocalAmpount.truncate();
+    if (rideType == "uber-x") {
+      double result = (totalFireAmount.truncate()) * 2.0;
+      return result.truncate();
+    } else if (rideType == "uber-go") {
+      return totalFireAmount.truncate();
+    } else if (rideType == "bike") {
+      double result = (totalFireAmount.truncate()) / 2.0;
+      return result.truncate();
+    } else {
+      return totalFireAmount.truncate();
+    }
   }
 
   /*static void getCurrentOnlineUserInfo() async {

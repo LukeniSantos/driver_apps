@@ -19,144 +19,134 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
 
-  Future<Position> _getcurrentLocation() async {
+  Future<Position> _getCurrentLocation() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      return Future.error("serviço desabilitado");
+      return Future.error("Serviço de localização desabilitado");
     }
 
     LocationPermission permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        return Future.error("Permissão está negada mesmo");
+        return Future.error("Permissão de localização negada");
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
-      return Future.error("Está negado pra toda vida");
+      return Future.error("Permissão de localização negada permanentemente");
     }
+
     return await Geolocator.getCurrentPosition();
   }
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.all(8.0),
+        child: Padding(
+          padding: EdgeInsets.all(20.0),
+          child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image(
                   image: AssetImage("images/logo.png"),
-                  width: 390,
-                  height: 250.0,
+                  width: size.width * 1,
+                  height: size.width * 0.7,
                   alignment: Alignment.center,
                 ),
-                SizedBox(
-                  height: 1.0,
-                ),
+                SizedBox(height: 30.0),
                 Text(
                   "Login as a Driver",
                   style: TextStyle(fontSize: 24.0, fontFamily: "Brand Bold"),
                   textAlign: TextAlign.center,
                 ),
-                Padding(
-                  padding: EdgeInsets.all(20.0),
-                  child: Column(
-                    children: [
-                      //MAIL
-                      SizedBox(
-                        height: 10.0,
+                SizedBox(height: 30.0),
+                Container(
+                  width: size.width * 0.9,
+                  child: TextField(
+                    controller: emailTextEditingController,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                      labelText: "Email",
+                      prefixIcon: Icon(Icons.email),
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide.none,
                       ),
-                      TextField(
-                        controller: emailTextEditingController,
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.email),
-                            labelText: "Email",
-                            labelStyle: TextStyle(
-                              fontSize: 15.0,
-                            ),
-                            hintStyle: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 10.0,
-                            )),
-                        style: TextStyle(fontSize: 14.0),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20.0),
+                Container(
+                  width: size.width * 0.9,
+                  child: TextField(
+                    controller: passwordTextEditingController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      labelText: "Password",
+                      prefixIcon: Icon(Icons.password),
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide.none,
                       ),
-                      //SENHA
-                      SizedBox(
-                        height: 10.0,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 40.0),
+                Container(
+                  width: size.width * 0.8,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (!emailTextEditingController.text.contains("@")) {
+                        displayToastMesenger("Email inválido", context);
+                      } else if (passwordTextEditingController.text.isEmpty) {
+                        displayToastMesenger("Senha é obrigatória", context);
+                      } else {
+                        _getCurrentLocation();
+                        loginAndAuthenticateUser(context);
+                      }
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.all(20.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Login"),
+                          Icon(Icons.login_rounded),
+                        ],
                       ),
-                      TextField(
-                        controller: passwordTextEditingController,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.password),
-                          labelText: "Passord",
-                          labelStyle: TextStyle(
-                            fontSize: 15.0,
-                          ),
-                          hintStyle: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 10.0,
-                          ),
-                        ),
-                        style: TextStyle(fontSize: 14.0),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.amber,
+                      onPrimary: Colors.black,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
                       ),
-                      //BOTÃO LOGIN CONTA
-                      SizedBox(
-                        height: 40.0,
-                      ),
-                      TextButton(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Login "),
-                            Icon(Icons.login_rounded),
-                          ],
-                        ),
-                        onPressed: () {
-                          if (!emailTextEditingController.text.contains("@")) {
-                            displayToastMesenger(
-                                "O email não é valido", context);
-                          } else if (passwordTextEditingController
-                              .text.isEmpty) {
-                            displayToastMesenger(
-                                "passowd é obrigatoria", context);
-                          } else {
-                            _getcurrentLocation();
-                            loginAndAuthenticateUser(context);
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.all(20.0),
-                          fixedSize: Size(400, 60),
-                          textStyle: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                          primary: Colors.amber,
-                          onPrimary: Color.fromARGB(255, 0, 0, 0),
-                          elevation: 10,
-                          shadowColor: Colors.black,
-                          shape: StadiumBorder(),
-                        ),
-                      ), //BOTÂO NAO TEM CONTA
-                      TextButton(
-                        onPressed: () {
-                          _getcurrentLocation();
-                          Navigator.pushNamedAndRemoveUntil(context,
-                              RegistrarScreen.idScreen, (route) => false);
-                        },
-                        child: Text("Não tem conta? Registra-se aqui."),
-                        style: TextButton.styleFrom(
-                          primary: Colors.black,
-                          shape: StadiumBorder(),
-                        ),
-                      ),
-                    ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20.0),
+                TextButton(
+                  onPressed: () {
+                    _getCurrentLocation();
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      RegistrarScreen.idScreen,
+                      (route) => false,
+                    );
+                  },
+                  child: Text(
+                    "Não tem conta? Registre-se aqui.",
+                    style: TextStyle(color: Colors.grey),
                   ),
                 ),
               ],
@@ -171,22 +161,25 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void loginAndAuthenticateUser(BuildContext context) async {
     showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return ProgressDialog(
-            message: "Autenticando, por favor espere...",
-          );
-        });
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return ProgressDialog(
+          message: "Autenticando, por favor espere...",
+        );
+      },
+    );
 
     final firebaseUser = (await _firebaseAuth
             .signInWithEmailAndPassword(
-                email: emailTextEditingController.text,
-                password: passwordTextEditingController.text)
+      email: emailTextEditingController.text,
+      password: passwordTextEditingController.text,
+    )
             .catchError((errMsg) {
-      displayToastMesenger("Erro: " + errMsg.toString(), context);
+      displayToastMesenger("Erro: $errMsg", context);
     }))
         .user;
+
     if (firebaseUser != null) {
       DataSnapshot snap;
       driverRef.child(firebaseUser.uid).once().then((snap) {
@@ -194,17 +187,23 @@ class _LoginScreenState extends State<LoginScreen> {
           currentfirebaseUser = firebaseUser;
 
           Navigator.pushNamedAndRemoveUntil(
-              context, MainScreen.idScreen, (route) => false);
-          displayToastMesenger("Seja bem vindo", context);
+            context,
+            MainScreen.idScreen,
+            (route) => false,
+          );
+          displayToastMesenger("Seja bem-vindo", context);
         } else {
           Navigator.pop(context);
           _firebaseAuth.signOut();
-          displayToastMesenger("Usuario inesisente, crie uma conta.", context);
+          displayToastMesenger(
+            "Usuário inexistente, crie uma conta.",
+            context,
+          );
         }
       });
     } else {
       Navigator.pop(context);
-      displayToastMesenger("A senha ou email está errado.", context);
+      displayToastMesenger("Email ou senha incorretos", context);
     }
   }
 }

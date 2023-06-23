@@ -16,7 +16,7 @@ import '../Models/drivers.dart';
 class HomeTabPage extends StatefulWidget {
   static const CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(-8.838333, 13.234444),
-    zoom: 14,
+    zoom: 16,
   );
 
   @override
@@ -68,6 +68,21 @@ class _HomeTabPageState extends State<HomeTabPage> {
     super.initState();
     _getcurrentLocation();
     getCurrentDriverInfo();
+  }
+
+  getRideType() {
+    driverRef
+        .child(firebaseUser.uid)
+        .child("car_details")
+        .child("type")
+        .once()
+        .then((data) {
+      if (data.snapshot.value != null) {
+        setState(() {
+          rideType = data.snapshot.value.toString();
+        });
+      }
+    });
   }
 
   getRating() {
@@ -127,7 +142,7 @@ class _HomeTabPageState extends State<HomeTabPage> {
     LatLng latLatPosition = LatLng(position.latitude, position.longitude);
 
     CameraPosition cameraPosition =
-        new CameraPosition(target: latLatPosition, zoom: 13);
+        new CameraPosition(target: latLatPosition, zoom: 16);
     newGoogleMapController
         .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
 
@@ -150,6 +165,7 @@ class _HomeTabPageState extends State<HomeTabPage> {
 
     AssistantMethods.retrieveHistoryInfo(context);
     getRating();
+    getRideType();
   }
 
   @override
@@ -168,14 +184,6 @@ class _HomeTabPageState extends State<HomeTabPage> {
             locatePosition();
           },
         ),
-
-        //Online e ofline Driver container
-        Container(
-          height: 140,
-          width: double.infinity,
-          color: Colors.black54,
-        ),
-
         Positioned(
           top: 60.0,
           left: 0.0,
@@ -196,7 +204,7 @@ class _HomeTabPageState extends State<HomeTabPage> {
                         driverStatusText = "Online now";
                         isDriversAvailable = true;
                       });
-                      displayToastMesenger("You are online Now", context);
+                      displayToastMesenger("Você está online agora", context);
                     } else {
                       makeDriverOfflineNow();
                       setState(() {
@@ -205,7 +213,7 @@ class _HomeTabPageState extends State<HomeTabPage> {
                         isDriversAvailable = false;
                       });
 
-                      displayToastMesenger("You are offline Now", context);
+                      displayToastMesenger("Você está offline agora", context);
                     }
                   },
                   style: ElevatedButton.styleFrom(
@@ -218,9 +226,10 @@ class _HomeTabPageState extends State<HomeTabPage> {
                         Text(
                           driverStatusText,
                           style: TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
                         Icon(
                           Icons.phone_android,
