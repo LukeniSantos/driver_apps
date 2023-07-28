@@ -30,7 +30,7 @@ class NotificationDialog extends StatelessWidget {
             Image.asset("images/taxi.png", width: 120.0),
             SizedBox(height: 10.0),
             Text(
-              "New Ride Request",
+              "Seu colega precisa de boleia",
               style: TextStyle(fontFamily: "Brand Bold", fontSize: 20.0),
             ),
             SizedBox(height: 20.0),
@@ -97,7 +97,7 @@ class NotificationDialog extends StatelessWidget {
                       Navigator.pop(context);
                     },
                     child: Text(
-                      "Cancel".toUpperCase(),
+                      "Cancelar".toUpperCase(),
                       style: TextStyle(
                         fontSize: 14.0,
                       ),
@@ -117,7 +117,7 @@ class NotificationDialog extends StatelessWidget {
                       assetsAudioPlayer.stop();
                     },
                     child: Text(
-                      "Accept".toUpperCase(),
+                      "Aceitar".toUpperCase(),
                       style: TextStyle(fontSize: 14),
                     ),
                   )

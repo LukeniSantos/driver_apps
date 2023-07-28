@@ -43,7 +43,7 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                   height: 1.0,
                 ),
                 Text(
-                  "Register as a Driver",
+                  "Regista-se como Condutor",
                   style: TextStyle(fontSize: 24.0, fontFamily: "Brand Bold"),
                   textAlign: TextAlign.center,
                 ),
@@ -60,7 +60,7 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                             prefixIcon: Icon(Icons.people_alt_rounded),
-                            labelText: "Name",
+                            labelText: "Nome",
                             labelStyle: TextStyle(
                               fontSize: 15.0,
                             ),
@@ -117,7 +117,7 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                         keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
                             prefixIcon: Icon(Icons.phone),
-                            labelText: "Phone",
+                            labelText: "Telefone",
                             labelStyle: TextStyle(
                               fontSize: 15.0,
                             ),
@@ -136,7 +136,7 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                         obscureText: true,
                         decoration: InputDecoration(
                           prefixIcon: Icon(Icons.password),
-                          labelText: "Password",
+                          labelText: "Senha",
                           labelStyle: TextStyle(
                             fontSize: 15.0,
                           ),
@@ -175,7 +175,7 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                           } else if (passwordTextEditingController.text.length <
                               6) {
                             displayToastMesenger(
-                                "verifique a sua passowd", context);
+                                "verifique a sua Senha", context);
                           } else {
                             registerNewUser(context);
                           }

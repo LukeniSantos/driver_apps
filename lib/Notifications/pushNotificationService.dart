@@ -31,8 +31,8 @@ class PushNotificationService {
   Future<String> getToken() async {
     String? token = await mensagem.getToken();
 
-    print("TOKENNNNNNNNNNNNNNN");
-    print("*********************$token");
+    print("TOKEN");
+    print("****$token");
 
     driverRef.child(currentfirebaseUser.uid).child("token").set(token);
 

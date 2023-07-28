@@ -24,7 +24,7 @@ class ProfileTabPage extends StatelessWidget {
               ),
             ),
             Text(
-              title + " driver",
+              title + " Companheiro",
               style: TextStyle(
                   fontSize: 20.0,
                   color: Colors.blueGrey[200],
@@ -44,7 +44,7 @@ class ProfileTabPage extends StatelessWidget {
             ),
             InfoCard(
               text:
-                  "${driversInformation != null ? driversInformation!.nip.toString() : 'Nome_'}",
+                  "${driversInformation != null ? driversInformation!.nip.toString() : 'Nip_'}",
               icon: Icons.numbers,
               onPressed: () async {
                 print("this is NIP.");
@@ -60,7 +60,7 @@ class ProfileTabPage extends StatelessWidget {
             ),
             InfoCard(
               text:
-                  "${driversInformation != null ? driversInformation!.email.toString() : 'Nome_'}",
+                  "${driversInformation != null ? driversInformation!.email.toString() : 'Email_'}",
               icon: Icons.email,
               onPressed: () async {
                 print("this is email.");

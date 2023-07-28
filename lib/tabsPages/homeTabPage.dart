@@ -57,7 +57,7 @@ class _HomeTabPageState extends State<HomeTabPage> {
 
   var geoLocator = Geolocator();
 
-  String driverStatusText = "Offline Now - Go Online";
+  String driverStatusText = "Indisponivel";
 
   Color driverStatusColor = Colors.black;
 
@@ -72,7 +72,7 @@ class _HomeTabPageState extends State<HomeTabPage> {
 
   getRideType() {
     driverRef
-        .child(firebaseUser.uid)
+        .child(currentfirebaseUser.uid)
         .child("car_details")
         .child("type")
         .once()
@@ -101,31 +101,31 @@ class _HomeTabPageState extends State<HomeTabPage> {
 
         if (starCounter <= 1.5) {
           setState(() {
-            title = "Very Bad";
+            title = "Muito mal";
           });
           return;
         }
         if (starCounter <= 2.5) {
           setState(() {
-            title = "Bad";
+            title = "Mal";
           });
           return;
         }
         if (starCounter <= 3.5) {
           setState(() {
-            title = "Good";
+            title = "Bom";
           });
           return;
         }
         if (starCounter <= 4.5) {
           setState(() {
-            title = "Very Good";
+            title = "Muito Bom";
           });
           return;
         }
         if (starCounter <= 5) {
           setState(() {
-            title = "Excellent";
+            title = "Excelente";
           });
           return;
         }
@@ -201,7 +201,7 @@ class _HomeTabPageState extends State<HomeTabPage> {
 
                       setState(() {
                         driverStatusColor = Colors.green;
-                        driverStatusText = "Online now";
+                        driverStatusText = "Estás disponivel";
                         isDriversAvailable = true;
                       });
                       displayToastMesenger("Você está online agora", context);
@@ -209,7 +209,7 @@ class _HomeTabPageState extends State<HomeTabPage> {
                       makeDriverOfflineNow();
                       setState(() {
                         driverStatusColor = Colors.black;
-                        driverStatusText = "Offline Now - Go Online";
+                        driverStatusText = "Insdisponivel";
                         isDriversAvailable = false;
                       });
 

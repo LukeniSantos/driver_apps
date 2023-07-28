@@ -10,35 +10,6 @@ import 'package:driver_apps/Models/directDetails.dart';
 import 'package:driver_apps/configMaps.dart';
 
 class AssistantMethods {
-  /*
-  static Future<String> searchCoordinateAdress(
-      Position position, context) async {
-    String placeAdress = "";
-    String st1 = "", st2 = "", st3 = "", st4 = "";
-    String url =
-        "https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.latitude},${position.longitude}&key=$mapKey";
-    var response = await RequestAssistat.getRequest(url);
-    if (response != "Falhou") {
-      // Address userPickUpAddress = Address("", placeAdress, "", position.latitude, position.longitude);
-      st1 = response["results"][0]["address_components"][0]["long_name"];
-      st2 = response["results"][0]["address_components"][1]["long_name"];
-      st3 = response["results"][0]["address_components"][2]["long_name"];
-      st4 = response["results"][0]["address_components"][3]["long_name"];
-      placeAdress = st1 + "," + st2 + "," + st3 + "," + st4;
-      placeAdress = response["results"][0]["formatted_address"];
-      Address userPickUpAddress = Address();
-      userPickUpAddress.latitude = position.latitude;
-      userPickUpAddress.longitude = position.longitude;
-      userPickUpAddress.placeName = placeAdress;
-
-      Provider.of<AppData>(context, listen: false)
-          .updatePickUpLocationAddress(userPickUpAddress);
-    }
-
-    return placeAdress;
-  }
-  */
-
   static Future<DirectionDetails?> obtainPlaceDirectionDetails(
       LatLng inicialPosition, LatLng finalPosition) async {
     String directionUrl =
@@ -89,20 +60,6 @@ class AssistantMethods {
       return totalFireAmount.truncate();
     }
   }
-
-  /*static void getCurrentOnlineUserInfo() async {
-    firebaseUser = (await FirebaseAuth.instance.currentUser)!;
-    String userId = firebaseUser.uid;
-    DatabaseReference reference =
-        FirebaseDatabase.instance.ref().child("users").child(userId);
-
-    DataSnapshot dataSnapshot;
-    reference.once().then(((dataSnapshot) {
-      if (dataSnapshot.snapshot.value != null) {
-        userCurrentInfo = Users.fromSnapshot(dataSnapshot.snapshot);
-      }
-    }));
-  }*/
 
   static void disablehomeTabLiveLocationUpdates() {
     homeTabPageStreamSubscription!.pause();

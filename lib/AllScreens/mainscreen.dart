@@ -54,19 +54,19 @@ class _MainScreenState extends State<MainScreen>
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: "Home",
+            label: "Inicio",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.credit_card),
-            label: "Earning",
+            label: "Ganhos",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.star),
-            label: "Ratings",
+            label: "Avaliação",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: "Account",
+            label: "Conta",
           )
         ],
         unselectedItemColor: Colors.black54,

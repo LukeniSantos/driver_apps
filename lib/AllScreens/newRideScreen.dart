@@ -43,7 +43,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
   String status = "accepted";
   String durationRide = "";
   bool isRequestingDirection = false;
-  String btnTitle = "Arrived";
+  String btnTitle = "Chegou";
   Color btnColor = Colors.blueAccent;
   Timer? timer;
   int durationCounter = 0;
@@ -83,7 +83,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
         position: mPosition,
         icon: animatingMarkerIcon!,
         rotation: rot,
-        infoWindow: InfoWindow(title: "Current Location"),
+        infoWindow: InfoWindow(title: "Sua localização"),
       );
 
       setState(() {
@@ -231,7 +231,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
                       child: ElevatedButton(
                         onPressed: () async {
                           if (status == "accepted") {
-                            status = "arrived";
+                            status = "Chegou";
                             String rideRequestId =
                                 widget.rideDetails.ride_request_id;
                             newRequestsRef
@@ -240,7 +240,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
                                 .set(status);
 
                             setState(() {
-                              btnTitle = "Start trip";
+                              btnTitle = "Iniciar Corrida";
                               btnColor = Colors.purple;
                             });
 
@@ -256,7 +256,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
                                 widget.rideDetails.dropoff);
 
                             Navigator.pop(context);
-                          } else if (status == "arrived") {
+                          } else if (status == "Chegou") {
                             status = "onride";
                             String rideRequestId =
                                 widget.rideDetails.ride_request_id;
@@ -266,7 +266,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
                                 .set(status);
 
                             setState(() {
-                              btnTitle = "End trip";
+                              btnTitle = "Terminar Corrida";
                               btnColor = Colors.red;
                             });
 
@@ -312,7 +312,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
     showDialog(
         context: context,
         builder: (BuildContext context) =>
-            ProgressDialog(message: "Please wait..."));
+            ProgressDialog(message: "Aguarde..."));
 
     var details = await AssistantMethods.obtainPlaceDirectionDetails(
         pickUpLatLng, dropOffLatLng);
@@ -485,7 +485,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) => ProgressDialog(
-        message: "Please wait...",
+        message: "Aguarde...",
       ),
     );
 

@@ -14,7 +14,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Trip History',
+          'Histórico de corridas',
         ),
         backgroundColor: Colors.black87,
         foregroundColor: Colors.white,

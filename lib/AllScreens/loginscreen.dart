@@ -61,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(height: 30.0),
                 Text(
-                  "Login as a Driver",
+                  "Login para Condutores",
                   style: TextStyle(fontSize: 24.0, fontFamily: "Brand Bold"),
                   textAlign: TextAlign.center,
                 ),
@@ -90,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     controller: passwordTextEditingController,
                     obscureText: true,
                     decoration: InputDecoration(
-                      labelText: "Password",
+                      labelText: "Senha",
                       prefixIcon: Icon(Icons.password),
                       filled: true,
                       fillColor: Colors.grey[200],

@@ -17,7 +17,7 @@ class EarningsTabPage extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  'Total Earnings',
+                  'Ganhos totais',
                   style: TextStyle(color: Colors.white),
                 ),
                 Text(
@@ -48,7 +48,7 @@ class EarningsTabPage extends StatelessWidget {
               Image.asset('images/uberx.png', width: 70),
               SizedBox(width: 16),
               Text(
-                'Total Trips',
+                'Total de Viagens',
                 style: TextStyle(fontSize: 16),
               ),
               Expanded(

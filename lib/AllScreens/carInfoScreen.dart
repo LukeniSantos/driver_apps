@@ -12,7 +12,7 @@ class CarInfoScreen extends StatelessWidget {
   TextEditingController carColorTextEditingController = TextEditingController();
 
   String? selectedCarType;
-  List<String> carTypeList = ["uber-x", "uber-go", "bike"];
+  List<String> carTypeList = ["Carro", "Motorizada"];
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +70,7 @@ class CarInfoScreen extends StatelessWidget {
                   SizedBox(height: 26.0),
                   DropdownButton(
                     iconSize: 40,
-                    hint: Text("Please chose Car type"),
+                    hint: Text("Tipo de veiculo"),
                     value: selectedCarType,
                     onChanged: (newValue) {
                       selectedCarType = newValue;
@@ -143,6 +143,11 @@ class CarInfoScreen extends StatelessWidget {
   void saveDriverCarInfo(context) {
     String userId = currentfirebaseUser.uid;
 
+    if (selectedCarType == "Carro") {
+      selectedCarType = "uber-go";
+    } else {
+      selectedCarType = "bike";
+    }
     Map carInfoMap = {
       "car_color": carColorTextEditingController.text,
       "car_number": carNumberTextEditingController.text,
