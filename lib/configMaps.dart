@@ -6,7 +6,7 @@ import 'package:geolocator/geolocator.dart';
 
 import 'Models/drivers.dart';
 
-String mapKey = "AIzaSyCuBH7uNOGkVhFpKbmuIRIlxoK_82T6JOk";
+String mapKey = "AIzaSyCuBH7uNOGkVhFpKbmuIRIlxoK_82T6JOk_";
 
 var firebaseUser;
 
